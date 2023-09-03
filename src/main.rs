@@ -71,8 +71,8 @@ fn main() -> ! {
     aht20.calibrate().unwrap();
 
     while let Ok((humidity, temperature)) = aht20.read() {
-        println!("Yeet {:.1}% {:.1}°C", humidity.rh(), temperature.celsius());
-        // loop_delay.delay_ms(1000u32);
+        println!("Temp {:.1}% {:.1}°C", humidity.rh(), temperature.celsius());
+        loop_delay.delay_ms(1000u32);
     }
 
     loop {}
