@@ -5,9 +5,38 @@ authors = ["FlareFlo <mail@flareflo.dev>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
+[profile.release]
+opt-level = 3
+lto = false
+
+
+# WIFI might or wont work without the proper opt level set
+[profile.dev.package.esp-wifi]
+opt-level = 3
+
 [dependencies]
-hal = { package = "esp32c3-hal", version = "0.10.0" }
+hal = { package = "esp32c3-hal", version = "0.11.0" }
 esp-backtrace = { version = "0.7.0", features = ["esp32c3", "panic-handler", "exception-handler", "print-uart"] }
 esp-println = { version = "0.5.0", features = ["esp32c3"] }
 esp-alloc = { version = "0.3.0" }
 aht20 = "0.1.0"
+
+[dependencies.esp-wifi]
+git = "https://github.com/esp-rs/esp-wifi.git"
+# This commit requires to be in sync with the HAL version used
+rev = "fd172502cdef96ab9e464cc5c9b072106d8dc00d"
+# A supported chip needs to be specified, as well as specific use-case features
+features = [
+    "esp32c3",
+    "wifi",
+    "phy-enable-usb",
+    "embedded-svc",
+    "ps-min-modem",
+    "ipv6",
+    "coex",
+    "ble",
+    "esp-now",
+    "log",
+]
+
+# Async embassy things
